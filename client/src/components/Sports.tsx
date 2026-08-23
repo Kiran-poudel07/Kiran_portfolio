@@ -80,7 +80,7 @@ export const Sports: React.FC = () => {
               </motion.p>
 
               {/* Achievements & Values */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem', marginBottom: '1.75rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))', gap: '0.85rem', marginBottom: '1.75rem', width: '100%' }}>
                 {sport.achievements.map((ach, aIdx) => (
                   <motion.div
                     key={aIdx}

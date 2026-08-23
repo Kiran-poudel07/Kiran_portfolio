@@ -27,7 +27,7 @@ export const Certifications: React.FC = () => {
         </motion.div>
 
         {/* Certifications Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.75rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.5rem', width: '100%' }}>
           {PORTFOLIO_DATA.certifications.map((cert: CertificationItem, idx: number) => (
             <motion.div
               key={cert.id}

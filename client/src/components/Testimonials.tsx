@@ -27,7 +27,7 @@ export const Testimonials: React.FC = () => {
         </motion.div>
 
         {/* Endorsements Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '2rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.5rem', width: '100%' }}>
           {PORTFOLIO_DATA.testimonials.map((item: TestimonialItem, idx: number) => (
             <motion.div
               key={item.id}

@@ -27,7 +27,7 @@ export const Goals: React.FC = () => {
         </motion.div>
 
         {/* Goals Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.5rem', width: '100%' }}>
           {/* Short Term */}
           <motion.div
             initial={{ opacity: 0, y: 35 }}

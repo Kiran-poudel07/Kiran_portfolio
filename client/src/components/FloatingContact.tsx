@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MessageSquare, Mail, Linkedin, Copy, Check, X, ArrowUp } from 'lucide-react';
+import { MessageSquare, Mail, Linkedin, Copy, Check, X } from 'lucide-react';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
 
 export const FloatingContact: React.FC = () => {
@@ -13,16 +13,16 @@ export const FloatingContact: React.FC = () => {
   };
 
   return (
-    <div style={{ position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 999 }}>
+    <div className="floating-contact-container" style={{ position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 999 }}>
       {/* Quick Menu Popover */}
       {isOpen && (
         <div
-          className="glass-panel"
+          className="glass-panel floating-contact-popover"
           style={{
             marginBottom: '1rem',
             padding: '1.25rem',
             width: '280px',
-            background: 'rgba(15, 23, 42, 0.95)',
+            background: 'rgba(15, 23, 42, 0.96)',
             border: '1px solid rgba(16, 185, 129, 0.4)',
             boxShadow: '0 10px 30px rgba(0,0,0,0.6)',
             display: 'flex',
@@ -72,8 +72,8 @@ export const FloatingContact: React.FC = () => {
         onClick={() => setIsOpen(!isOpen)}
         className="btn-glow-primary"
         style={{
-          width: '56px',
-          height: '56px',
+          width: '52px',
+          height: '52px',
           borderRadius: '50%',
           padding: 0,
           display: 'flex',
@@ -83,7 +83,7 @@ export const FloatingContact: React.FC = () => {
         }}
         title="Quick Connect with Kiran Poudel"
       >
-        {isOpen ? <X size={24} /> : <MessageSquare size={24} />}
+        {isOpen ? <X size={22} /> : <MessageSquare size={22} />}
       </button>
     </div>
   );
