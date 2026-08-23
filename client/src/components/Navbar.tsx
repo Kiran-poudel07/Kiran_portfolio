@@ -28,8 +28,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
     { label: 'About', href: '#about' },
     { label: 'Tech Stack', href: '#skills' },
     { label: 'Projects', href: '#projects' },
-    { label: 'Experience', href: '#experience' },
-    { label: 'Sports', href: '#sports' },
+    { label: 'Credentials', href: '#certifications' },
+    { label: 'Endorsements', href: '#endorsements' },
+    { label: 'FAQ', href: '#faq' },
     { label: 'Contact', href: '#contact' },
   ];
 
@@ -48,7 +49,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
         zIndex: 100,
         transition: 'all 0.3s ease',
         background: isScrolled
-          ? 'rgba(8, 12, 20, 0.85)'
+          ? 'rgba(7, 12, 24, 0.9)'
           : 'transparent',
         backdropFilter: isScrolled ? 'blur(16px)' : 'none',
         borderBottom: isScrolled ? '1px solid rgba(255, 255, 255, 0.08)' : 'none',
@@ -63,37 +64,37 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
               width: '42px',
               height: '42px',
               borderRadius: '0.75rem',
-              background: 'linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%)',
+              background: 'linear-gradient(135deg, #10b981 0%, #0284c7 100%)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               color: '#ffffff',
               fontWeight: 800,
               fontSize: '1.1rem',
-              boxShadow: '0 4px 15px rgba(139, 92, 246, 0.4)',
+              boxShadow: '0 4px 15px rgba(16, 185, 129, 0.4)',
             }}
           >
             KP
           </div>
           <div>
             <span style={{ fontWeight: 800, fontSize: '1.2rem', color: '#ffffff', letterSpacing: '-0.02em' }}>
-              Kiran <span className="gradient-text">Poudel</span>
+              Er. Kiran <span className="gradient-text">Poudel</span>
             </span>
-            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '-2px' }}>Full Stack MERN</div>
+            <div style={{ fontSize: '0.7rem', color: '#94a3b8', marginTop: '-2px' }}>Registered Computer Engineer</div>
           </div>
         </a>
 
         {/* Desktop Nav Items */}
-        <nav style={{ display: 'none', alignItems: 'center', gap: '1.75rem' }} className="desktop-nav">
+        <nav style={{ display: 'none', alignItems: 'center', gap: '1.4rem' }} className="desktop-nav">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
               onClick={() => handleNavClick(link.href)}
               style={{
-                fontSize: '0.9rem',
+                fontSize: '0.86rem',
                 fontWeight: 600,
-                color: activeSection === link.href.substring(1) ? '#38bdf8' : '#94a3b8',
+                color: activeSection === link.href.substring(1) ? '#34d399' : '#94a3b8',
                 transition: 'color 0.2s',
                 position: 'relative',
               }}
@@ -142,7 +143,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
             display: 'flex',
             flexDirection: 'column',
             gap: '1rem',
-            background: 'rgba(8, 12, 20, 0.95)',
+            background: 'rgba(7, 12, 24, 0.95)',
           }}
         >
           {navLinks.map((link) => (
@@ -176,11 +177,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
       )}
 
       <style>{`
-        @media (min-width: 850px) {
+        @media (min-width: 992px) {
           .desktop-nav { display: flex !important; }
           .mobile-toggle { display: none !important; }
         }
-        @media (max-width: 849px) {
+        @media (max-width: 991px) {
           .mobile-toggle { display: flex !important; }
         }
       `}</style>

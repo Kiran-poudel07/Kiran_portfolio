@@ -53,6 +53,31 @@ export interface EducationItem {
   necCertImage?: string;
 }
 
+export interface CertificationItem {
+  id: string;
+  title: string;
+  issuer: string;
+  date: string;
+  credentialId?: string;
+  description: string;
+  iconType: 'nec' | 'mern' | 'degree' | 'ml';
+  image?: string;
+}
+
+export interface TestimonialItem {
+  id: string;
+  name: string;
+  role: string;
+  organization: string;
+  quote: string;
+  relationship: string;
+}
+
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
 export const PORTFOLIO_DATA = {
   personal: {
     name: 'Kiran Poudel',
@@ -229,6 +254,81 @@ export const PORTFOLIO_DATA = {
       ],
     },
   ] as Project[],
+
+  certifications: [
+    {
+      id: 'cert-1',
+      title: 'Registered Computer Engineer License',
+      issuer: 'Nepal Engineering Council (NEC)',
+      date: 'Official Engineering Registration',
+      description: 'Authorized registered Computer Engineer under the Nepal Engineering Council (NEC), certified for professional computer engineering practice.',
+      iconType: 'nec',
+      image: '/nec_certificate.jpg',
+    },
+    {
+      id: 'cert-2',
+      title: 'Bachelor of Computer Engineering Degree',
+      issuer: 'Pokhara University (Everest Engineering College)',
+      date: 'CGPA: 3.34 / 4.00',
+      description: 'Undergraduate Computer Engineering degree specializing in Software Engineering, MERN, ASP.NET Core, Database Systems, and Machine Learning.',
+      iconType: 'degree',
+      image: '/kiran_graduation.jpg',
+    },
+    {
+      id: 'cert-3',
+      title: 'Full Stack MERN Developer Certification',
+      issuer: 'MERN Stack Training & Research',
+      date: '3-Month Intensive Certification',
+      description: 'Mastery in building full-stack web applications using MongoDB Atlas, Express.js, React.js, Node.js, and TypeScript.',
+      iconType: 'mern',
+    },
+    {
+      id: 'cert-4',
+      title: 'Data Science & Machine Learning Research Certificate',
+      issuer: 'Academic Research & Survey Projects',
+      date: 'Empirical AI Analytics',
+      description: 'Conducted field surveys across 10+ Engineering Colleges & Government Offices in Kathmandu, modeling Random Forest & SEM algorithms.',
+      iconType: 'ml',
+    },
+  ] as CertificationItem[],
+
+  testimonials: [
+    {
+      id: 'test-1',
+      name: 'Everest Engineering College Faculty & Peer Body',
+      role: 'Student Representative Body',
+      organization: 'Everest Engineering College (Pokhara University)',
+      quote: 'Kiran served as an outstanding Class Representative and Event Management Lead. His leadership in organizing technical hackathons, managing student affairs, and maintaining academic excellence (3.34 CGPA) was exemplary.',
+      relationship: 'Academic & Event Leadership Endorsement',
+    },
+    {
+      id: 'test-2',
+      name: 'Uranus Tech Engineering Team',
+      role: 'Software Development Division',
+      organization: 'Uranus Tech Pvt. Ltd.',
+      quote: 'Kiran has demonstrated strong expertise in ASP.NET Core, C#, and SQL Server. He approaches complex enterprise backend problems with high discipline, delivering reliable, long-lasting software solutions.',
+      relationship: 'Enterprise Engineering Team Endorsement',
+    },
+  ] as TestimonialItem[],
+
+  faqs: [
+    {
+      question: 'What is your primary software engineering stack?',
+      answer: 'My primary stack is ASP.NET Core & C# (Web APIs, SQL Server, IIS) combined with Full-Stack MERN (MongoDB, Express, React, Node.js, TypeScript). I also work with Python for Machine Learning & Data Science analytics.',
+    },
+    {
+      question: 'Are you available for full-time remote engineering roles?',
+      answer: 'Yes! While currently working as an ASP.NET Developer at Uranus Tech Pvt. Ltd., I am actively seeking full-time remote software engineering opportunities with global tech companies and enterprise teams.',
+    },
+    {
+      question: 'What empirical field research have you conducted?',
+      answer: 'I conducted two major field research projects: (1) Demand-Based Waste Routing System visiting Kathmandu Government & Municipal Offices, and (2) FOMO PNA Network AI Survey visiting over 10+ Engineering Colleges across Nepal to train Random Forest & SEM machine learning models.',
+    },
+    {
+      question: 'Are you officially licensed by the Nepal Engineering Council (NEC)?',
+      answer: 'Yes, I am a Registered Computer Engineer under the Nepal Engineering Council (NEC), officially certified for professional computer engineering practice.',
+    },
+  ] as FaqItem[],
 
   experience: [
     {

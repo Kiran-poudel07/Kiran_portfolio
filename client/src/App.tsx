@@ -7,6 +7,9 @@ import { Projects } from './components/Projects';
 import { Experience } from './components/Experience';
 import { Sports } from './components/Sports';
 import { Education } from './components/Education';
+import { Certifications } from './components/Certifications';
+import { Testimonials } from './components/Testimonials';
+import { Faq } from './components/Faq';
 import { Goals } from './components/Goals';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
@@ -17,7 +20,7 @@ export function App() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#0b1120' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#070c18' }}>
       {/* Sticky Glassmorphism Header */}
       <Navbar onOpenResume={() => setIsResumeOpen(true)} />
 
@@ -30,6 +33,9 @@ export function App() {
         <Experience />
         <Sports />
         <Education />
+        <Certifications />
+        <Testimonials />
+        <Faq />
         <Goals />
         <Contact />
       </main>
