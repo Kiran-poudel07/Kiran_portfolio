@@ -7,7 +7,12 @@
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
-  "keywords": ["mern", "express", "mongodb", "portfolio"],
+  "keywords": [
+    "mern",
+    "express",
+    "mongodb",
+    "portfolio"
+  ],
   "author": "Kiran Poudel",
   "license": "ISC",
   "dependencies": {
@@ -16,6 +21,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
+    "kiran-portfolio": "file:..",
     "mongoose": "^8.5.2",
     "nodemailer": "^6.9.14"
   },
