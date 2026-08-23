@@ -37,7 +37,8 @@ export const Contact: React.FC = () => {
     setStatus({ type: 'loading', message: 'Sending message to server...' });
 
     try {
-      const res = await axios.post('http://localhost:5000/api/v1/contact', formData);
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
+      const res = await axios.post(`${apiUrl}/contact`, formData);
       if (res.data && res.data.success) {
         setStatus({
           type: 'success',
