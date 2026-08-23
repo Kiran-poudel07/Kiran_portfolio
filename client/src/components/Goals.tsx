@@ -18,10 +18,10 @@ export const Goals: React.FC = () => {
           style={{ textAlign: 'center', marginBottom: '3.5rem' }}
         >
           <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 1.0 }} style={{ fontSize: '0.85rem', fontWeight: 700, color: '#a855f7', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-            FUTURE ASPIRATIONS & NATIONAL IMPACT
+            MY VISION & MISSION
           </motion.span>
           <motion.h2 initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1.0, delay: 0.15 }} style={{ fontSize: '2.5rem', fontWeight: 800, color: '#ffffff', marginTop: '0.4rem' }}>
-            Career Goals & <span className="gradient-text">Vision</span>
+            Career Goals & <span className="gradient-text">Future Impact</span>
           </motion.h2>
           <div style={{ width: '60px', height: '4px', background: 'linear-gradient(90deg, #a855f7, #38bdf8)', margin: '0.8rem auto 0', borderRadius: '2px' }}></div>
         </motion.div>
