@@ -96,7 +96,7 @@ export const About: React.FC = () => {
           </motion.div>
 
           {/* 4 Feature Cards */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
+          <div className="about-features-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.25rem' }}>
             {highlights.map((item, idx) => (
               <motion.div
                 key={idx}

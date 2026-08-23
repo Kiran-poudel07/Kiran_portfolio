@@ -128,7 +128,7 @@ export const Contact: React.FC = () => {
 
               {/* Social Channels List */}
               <h4 style={{ fontSize: '1rem', fontWeight: 700, color: '#ffffff', marginBottom: '1rem' }}>Social Networks</h4>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+              <div className="social-grid-mobile" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0.75rem' }}>
                 <motion.a
                   whileHover={{ scale: 1.04, y: -3 }}
                   href={PORTFOLIO_DATA.personal.socials.github}
