@@ -1,6 +1,6 @@
-import React from 'react';
-import { ArrowRight, Code2, Download, Github, Linkedin, Mail, ShieldCheck, Copy, Check } from 'lucide-react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { ArrowRight, Code2, Download, Github, Linkedin, Mail, ShieldCheck, Copy, Check, Sparkles } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
 
 interface HeroProps {
@@ -8,7 +8,22 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
-  const [copiedEmail, setCopiedEmail] = React.useState(false);
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [roleIndex, setRoleIndex] = useState(0);
+
+  const roles = [
+    'ASP.NET Core & C# Engineer',
+    'Full Stack MERN Developer',
+    'NEC Registered Computer Engineer',
+    'AI / ML & Data Science Researcher',
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRoleIndex((prev) => (prev + 1) % roles.length);
+    }, 2800);
+    return () => clearInterval(interval);
+  }, [roles.length]);
 
   const copyEmailToClipboard = () => {
     navigator.clipboard.writeText(PORTFOLIO_DATA.personal.email);
@@ -17,46 +32,62 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
   };
 
   return (
-    <section id="home" style={{ paddingTop: '7.5rem', paddingBottom: '3.5rem', position: 'relative' }}>
+    <section id="home" style={{ paddingTop: '8rem', paddingBottom: '4rem', position: 'relative' }}>
       <div className="container">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '2.5rem', alignItems: 'center' }} className="hero-grid">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '3rem', alignItems: 'center' }} className="hero-grid">
           {/* Left Column: Text & CTAs */}
           <motion.div
-            initial={{ opacity: 0, x: -35 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
+            initial={{ opacity: 0, x: -60, scale: 0.95 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ type: 'spring', stiffness: 100, damping: 15, duration: 0.8 }}
           >
-            <div className="status-pill" style={{ marginBottom: '1.25rem' }}>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="status-pill"
+              style={{ marginBottom: '1.25rem' }}
+            >
               <span className="status-dot"></span>
               {PORTFOLIO_DATA.personal.status}
-            </div>
+            </motion.div>
 
-            <h1 style={{ fontSize: '3.1rem', fontWeight: 800, lineHeight: 1.15, marginBottom: '0.85rem', letterSpacing: '-0.03em' }}>
+            <h1 style={{ fontSize: '3.3rem', fontWeight: 800, lineHeight: 1.12, marginBottom: '0.85rem', letterSpacing: '-0.03em' }}>
               Hi, I'm <span className="gradient-text">Kiran Poudel</span>
             </h1>
 
-            <h2 style={{ fontSize: '1.4rem', color: '#38bdf8', fontWeight: 700, marginBottom: '1.25rem' }}>
-              {PORTFOLIO_DATA.personal.title}
-            </h2>
+            {/* Dynamic Typewriter Role Switching */}
+            <div style={{ height: '2.4rem', overflow: 'hidden', marginBottom: '1.25rem' }}>
+              <AnimatePresence mode="wait">
+                <motion.h2
+                  key={roleIndex}
+                  initial={{ opacity: 0, y: 25 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -25 }}
+                  transition={{ duration: 0.4 }}
+                  style={{ fontSize: '1.45rem', color: '#38bdf8', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                >
+                  <Sparkles size={20} style={{ color: '#10b981' }} /> {roles[roleIndex]}
+                </motion.h2>
+              </AnimatePresence>
+            </div>
 
-            <p style={{ fontSize: '1.05rem', color: '#94a3b8', maxWidth: '580px', marginBottom: '1.75rem', lineHeight: 1.7 }}>
+            <p style={{ fontSize: '1.08rem', color: '#94a3b8', maxWidth: '580px', marginBottom: '2rem', lineHeight: 1.75 }}>
               Registered Computer Engineer (Nepal Engineering Council) & Software Engineer at Uranus Tech Pvt. Ltd. Specialized in ASP.NET Core, C#, SQL Server, MERN Stack, and applying Data Science & AI/ML to solve real-world national problems in Nepal.
             </p>
 
             {/* Action CTAs */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.85rem', marginBottom: '2rem' }}>
-              <a href="#projects" className="btn-glow-primary">
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '2.25rem' }}>
+              <motion.a whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.95 }} href="#projects" className="btn-glow-primary">
                 Explore Projects & Research <ArrowRight size={18} />
-              </a>
+              </motion.a>
 
-              <button onClick={onOpenResume} className="btn-glass" style={{ borderColor: 'rgba(16, 185, 129, 0.4)' }}>
+              <motion.button whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.95 }} onClick={onOpenResume} className="btn-glass" style={{ borderColor: 'rgba(16, 185, 129, 0.4)' }}>
                 <Download size={18} /> Resume PDF
-              </button>
+              </motion.button>
 
-              <button onClick={copyEmailToClipboard} className="btn-glass">
+              <motion.button whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.95 }} onClick={copyEmailToClipboard} className="btn-glass">
                 {copiedEmail ? <Check size={18} style={{ color: '#34d399' }} /> : <Copy size={18} />}
                 {copiedEmail ? 'Email Copied!' : 'Copy Email'}
-              </button>
+              </motion.button>
             </div>
 
             {/* Social & Contact Buttons */}
@@ -65,7 +96,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
                 DIRECT CONTACT:
               </span>
               <div style={{ display: 'flex', gap: '0.65rem' }}>
-                <a
+                <motion.a
+                  whileHover={{ scale: 1.08, y: -2 }}
                   href={PORTFOLIO_DATA.personal.socials.linkedin}
                   target="_blank"
                   rel="noreferrer"
@@ -82,8 +114,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
                   }}
                 >
                   <Linkedin size={16} /> LinkedIn Profile
-                </a>
-                <a
+                </motion.a>
+                <motion.a
+                  whileHover={{ scale: 1.08, y: -2 }}
                   href={PORTFOLIO_DATA.personal.socials.github}
                   target="_blank"
                   rel="noreferrer"
@@ -100,20 +133,21 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
                   }}
                 >
                   <Github size={16} /> GitHub Repos
-                </a>
+                </motion.a>
               </div>
             </div>
           </motion.div>
 
           {/* Right Column: Headshot Photo Card & Code Window */}
           <motion.div
-            initial={{ opacity: 0, x: 35 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
+            initial={{ opacity: 0, x: 60, scale: 0.95 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ type: 'spring', stiffness: 100, damping: 15, duration: 0.8, delay: 0.1 }}
             style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}
           >
             {/* Profile Photo Card */}
-            <div
+            <motion.div
+              whileHover={{ scale: 1.025, y: -4 }}
               className="glass-panel"
               style={{
                 padding: '1.25rem',
@@ -128,12 +162,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
                 src={PORTFOLIO_DATA.personal.headshotImage}
                 alt="Kiran Poudel Headshot"
                 style={{
-                  width: '90px',
-                  height: '110px',
+                  width: '95px',
+                  height: '115px',
                   borderRadius: '0.75rem',
                   objectFit: 'cover',
                   border: '2px solid #10b981',
-                  boxShadow: '0 6px 18px rgba(16, 185, 129, 0.3)',
+                  boxShadow: '0 6px 20px rgba(16, 185, 129, 0.4)',
                 }}
               />
               <div>
@@ -145,10 +179,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
                   ASP.NET Developer @ Uranus Tech • Pokhara University Alumni (3.34 CGPA)
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Code Card IDE */}
-            <div className="code-card glass-panel" style={{ padding: '0', overflow: 'hidden' }}>
+            <motion.div
+              whileHover={{ scale: 1.02, y: -4 }}
+              className="code-card glass-panel"
+              style={{ padding: '0', overflow: 'hidden' }}
+            >
               {/* IDE Top Bar */}
               <div
                 style={{
@@ -186,15 +224,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
                   &#125;;
                 </code>
               </pre>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
 
         {/* Recruiter Impact Metrics Bar */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
+          initial={{ opacity: 0, y: 40, scale: 0.9 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ type: 'spring', stiffness: 120, damping: 15, delay: 0.2 }}
           style={{
             marginTop: '3.5rem',
             display: 'grid',
@@ -203,20 +242,21 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
           }}
         >
           {PORTFOLIO_DATA.personal.keyMetrics.map((metric, mIdx) => (
-            <div
+            <motion.div
               key={mIdx}
+              whileHover={{ scale: 1.05, y: -5 }}
               className="glass-panel"
               style={{
                 padding: '1.25rem 1.5rem',
-                borderLeft: mIdx === 0 ? '3px solid #34d399' : mIdx === 1 ? '3px solid #38bdf8' : '3px solid #f59e0b',
+                borderLeft: mIdx === 0 ? '4px solid #34d399' : mIdx === 1 ? '4px solid #38bdf8' : '4px solid #f59e0b',
               }}
             >
-              <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#ffffff' }}>{metric.value}</div>
+              <div style={{ fontSize: '1.45rem', fontWeight: 800, color: '#ffffff' }}>{metric.value}</div>
               <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#34d399', marginTop: '0.1rem' }}>
                 {metric.label}
               </div>
               <div style={{ fontSize: '0.78rem', color: '#94a3b8', marginTop: '0.2rem' }}>{metric.subText}</div>
-            </div>
+            </motion.div>
           ))}
         </motion.div>
       </div>
