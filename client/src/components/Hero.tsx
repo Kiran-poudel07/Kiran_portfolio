@@ -7,6 +7,33 @@ interface HeroProps {
   onOpenResume: () => void;
 }
 
+// Slow, smooth ease curve
+const smoothEase = 'easeInOut' as const;
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 35, scale: 0.96 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 1.0,
+      ease: smoothEase,
+    },
+  },
+};
+
 export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [roleIndex, setRoleIndex] = useState(0);
@@ -21,7 +48,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setRoleIndex((prev) => (prev + 1) % roles.length);
-    }, 2800);
+    }, 3200);
     return () => clearInterval(interval);
   }, [roles.length]);
 
@@ -34,64 +61,62 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
   return (
     <section id="home" style={{ paddingTop: '8rem', paddingBottom: '4rem', position: 'relative' }}>
       <div className="container">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '3rem', alignItems: 'center' }} className="hero-grid">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '3rem', alignItems: 'center' }}
+          className="hero-grid"
+        >
           {/* Left Column: Text & CTAs */}
-          <motion.div
-            initial={{ opacity: 0, x: -60, scale: 0.95 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            transition={{ type: 'spring', stiffness: 100, damping: 15, duration: 0.8 }}
-          >
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="status-pill"
-              style={{ marginBottom: '1.25rem' }}
-            >
+          <div>
+            <motion.div variants={itemVariants} className="status-pill" style={{ marginBottom: '1.25rem' }}>
               <span className="status-dot"></span>
               {PORTFOLIO_DATA.personal.status}
             </motion.div>
 
-            <h1 style={{ fontSize: '3.3rem', fontWeight: 800, lineHeight: 1.12, marginBottom: '0.85rem', letterSpacing: '-0.03em' }}>
+            <motion.h1 variants={itemVariants} style={{ fontSize: '3.3rem', fontWeight: 800, lineHeight: 1.12, marginBottom: '0.85rem', letterSpacing: '-0.03em' }}>
               Hi, I'm <span className="gradient-text">Kiran Poudel</span>
-            </h1>
+            </motion.h1>
 
             {/* Dynamic Typewriter Role Switching */}
-            <div style={{ height: '2.4rem', overflow: 'hidden', marginBottom: '1.25rem' }}>
+            <motion.div variants={itemVariants} style={{ height: '2.4rem', overflow: 'hidden', marginBottom: '1.25rem' }}>
               <AnimatePresence mode="wait">
                 <motion.h2
                   key={roleIndex}
-                  initial={{ opacity: 0, y: 25 }}
+                  initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -25 }}
-                  transition={{ duration: 0.4 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.7, ease: smoothEase }}
                   style={{ fontSize: '1.45rem', color: '#38bdf8', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem' }}
                 >
                   <Sparkles size={20} style={{ color: '#10b981' }} /> {roles[roleIndex]}
                 </motion.h2>
               </AnimatePresence>
-            </div>
+            </motion.div>
 
-            <p style={{ fontSize: '1.08rem', color: '#94a3b8', maxWidth: '580px', marginBottom: '2rem', lineHeight: 1.75 }}>
+            <motion.p variants={itemVariants} style={{ fontSize: '1.08rem', color: '#94a3b8', maxWidth: '580px', marginBottom: '2rem', lineHeight: 1.75 }}>
               Registered Computer Engineer (Nepal Engineering Council) & Software Engineer at Uranus Tech Pvt. Ltd. Specialized in ASP.NET Core, C#, SQL Server, MERN Stack, and applying Data Science & AI/ML to solve real-world national problems in Nepal.
-            </p>
+            </motion.p>
 
             {/* Action CTAs */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '2.25rem' }}>
-              <motion.a whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.95 }} href="#projects" className="btn-glow-primary">
+            <motion.div variants={itemVariants} style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '2.25rem' }}>
+              <motion.a whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.97 }} href="#projects" className="btn-glow-primary">
                 Explore Projects & Research <ArrowRight size={18} />
               </motion.a>
 
-              <motion.button whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.95 }} onClick={onOpenResume} className="btn-glass" style={{ borderColor: 'rgba(16, 185, 129, 0.4)' }}>
+              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.97 }} onClick={onOpenResume} className="btn-glass" style={{ borderColor: 'rgba(16, 185, 129, 0.4)' }}>
                 <Download size={18} /> Resume PDF
               </motion.button>
 
-              <motion.button whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.95 }} onClick={copyEmailToClipboard} className="btn-glass">
+              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.97 }} onClick={copyEmailToClipboard} className="btn-glass">
                 {copiedEmail ? <Check size={18} style={{ color: '#34d399' }} /> : <Copy size={18} />}
                 {copiedEmail ? 'Email Copied!' : 'Copy Email'}
               </motion.button>
-            </div>
+            </motion.div>
 
             {/* Social & Contact Buttons */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap' }}>
+            <motion.div variants={itemVariants} style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap' }}>
               <span style={{ fontSize: '0.82rem', color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 DIRECT CONTACT:
               </span>
@@ -135,19 +160,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
                   <Github size={16} /> GitHub Repos
                 </motion.a>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
 
           {/* Right Column: Headshot Photo Card & Code Window */}
-          <motion.div
-            initial={{ opacity: 0, x: 60, scale: 0.95 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            transition={{ type: 'spring', stiffness: 100, damping: 15, duration: 0.8, delay: 0.1 }}
-            style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}
-          >
+          <motion.div variants={itemVariants} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
             {/* Profile Photo Card */}
             <motion.div
-              whileHover={{ scale: 1.025, y: -4 }}
+              whileHover={{ scale: 1.02, y: -4 }}
               className="glass-panel"
               style={{
                 padding: '1.25rem',
@@ -171,7 +191,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
                 }}
               />
               <div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#ffffff' }}>Kiran Poudel</h3>
+                <motion.h3 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.0 }} style={{ fontSize: '1.25rem', fontWeight: 800, color: '#ffffff' }}>
+                  Kiran Poudel
+                </motion.h3>
                 <div style={{ fontSize: '0.85rem', color: '#34d399', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                   <ShieldCheck size={16} /> Registered Computer Engineer (NEC)
                 </div>
@@ -226,14 +248,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
               </pre>
             </motion.div>
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* Recruiter Impact Metrics Bar */}
         <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.9 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ type: 'spring', stiffness: 120, damping: 15, delay: 0.2 }}
+          transition={{ duration: 1.0, ease: smoothEase, delay: 0.2 }}
           style={{
             marginTop: '3.5rem',
             display: 'grid',
@@ -244,14 +266,20 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
           {PORTFOLIO_DATA.personal.keyMetrics.map((metric, mIdx) => (
             <motion.div
               key={mIdx}
-              whileHover={{ scale: 1.05, y: -5 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.1 * mIdx, ease: smoothEase }}
+              whileHover={{ scale: 1.04, y: -4 }}
               className="glass-panel"
               style={{
                 padding: '1.25rem 1.5rem',
                 borderLeft: mIdx === 0 ? '4px solid #34d399' : mIdx === 1 ? '4px solid #38bdf8' : '4px solid #f59e0b',
               }}
             >
-              <div style={{ fontSize: '1.45rem', fontWeight: 800, color: '#ffffff' }}>{metric.value}</div>
+              <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 1.0 }} style={{ fontSize: '1.45rem', fontWeight: 800, color: '#ffffff' }}>
+                {metric.value}
+              </motion.div>
               <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#34d399', marginTop: '0.1rem' }}>
                 {metric.label}
               </div>

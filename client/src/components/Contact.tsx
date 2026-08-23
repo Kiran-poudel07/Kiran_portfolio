@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { Mail, Send, MapPin, Phone, Github, Linkedin, Facebook, Instagram, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Mail, Send, MapPin, Github, Linkedin, Facebook, Instagram, CheckCircle2, AlertCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
 import axios from 'axios';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
+
+const smoothEase = 'easeInOut' as const;
 
 export const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -34,23 +37,21 @@ export const Contact: React.FC = () => {
     setStatus({ type: 'loading', message: 'Sending message to server...' });
 
     try {
-      // Connect to MERN Express backend API
       const res = await axios.post('http://localhost:5000/api/v1/contact', formData);
       if (res.data && res.data.success) {
         setStatus({
           type: 'success',
-          message: 'Thank you! Your message has been stored in database and sent successfully.',
+          message: 'Thank you! Your message has been stored in MongoDB and sent successfully.',
         });
         setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
         throw new Error(res.data.message || 'Failed to submit');
       }
     } catch (err: any) {
-      // Fallback message if local Express server is not yet running
       console.warn('MERN Server response/error:', err);
       setStatus({
         type: 'success',
-        message: 'Message captured! (If backend server is offline, feel free to email directly at poudelkiran07@gmail.com)',
+        message: 'Message captured! (If backend server is offline, feel free to email directly at erkiranpoudel08@gmail.com)',
       });
       setFormData({ name: '', email: '', subject: '', message: '' });
     }
@@ -60,47 +61,61 @@ export const Contact: React.FC = () => {
     <section id="contact" style={{ padding: '5rem 0 6rem', position: 'relative' }}>
       <div className="container">
         {/* Section Heading */}
-        <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-          <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#06b6d4', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.9, ease: smoothEase }}
+          style={{ textAlign: 'center', marginBottom: '3.5rem' }}
+        >
+          <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 1.0 }} style={{ fontSize: '0.85rem', fontWeight: 700, color: '#06b6d4', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
             GET IN TOUCH
-          </span>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: '#ffffff', marginTop: '0.4rem' }}>
+          </motion.span>
+          <motion.h2 initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1.0, delay: 0.15 }} style={{ fontSize: '2.5rem', fontWeight: 800, color: '#ffffff', marginTop: '0.4rem' }}>
             Contact <span className="gradient-text">Me</span>
-          </h2>
-          <p style={{ color: '#94a3b8', fontSize: '1rem', marginTop: '0.5rem', maxWidth: '600px', margin: '0.5rem auto 0' }}>
+          </motion.h2>
+          <motion.p initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1.0, delay: 0.25 }} style={{ color: '#94a3b8', fontSize: '1rem', marginTop: '0.5rem', maxWidth: '600px', margin: '0.5rem auto 0' }}>
             Have a project idea, job opportunity, or technical question? Send a message directly or connect via social media!
-          </p>
-          <div style={{ width: '60px', height: '4px', background: 'linear-gradient(90deg, #06b6d4, #ec4899)', margin: '0.8rem auto 0', borderRadius: '2px' }}></div>
-        </div>
+          </motion.p>
+          <div style={{ width: '60px', height: '4px', background: 'linear-gradient(90deg, #06b6d4, #10b981)', margin: '0.8rem auto 0', borderRadius: '2px' }}></div>
+        </motion.div>
 
         {/* Contact Grid */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '2.5rem' }} className="contact-grid">
           {/* Left Column: Direct Info & Social Cards */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, ease: smoothEase }}
+            style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
+          >
             <div className="glass-panel" style={{ padding: '2rem' }}>
               <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#ffffff', marginBottom: '1.25rem' }}>
                 Quick Info & Connections
               </h3>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '2rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <div style={{ padding: '0.75rem', background: 'rgba(139, 92, 246, 0.15)', borderRadius: '0.6rem', color: '#c084fc' }}>
+                <motion.div initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                  <div style={{ padding: '0.75rem', background: 'rgba(16, 185, 129, 0.15)', borderRadius: '0.6rem', color: '#34d399' }}>
                     <Mail size={20} />
                   </div>
                   <div>
                     <div style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Direct Email</div>
                     <div style={{ fontSize: '1rem', fontWeight: 600, color: '#ffffff' }}>{PORTFOLIO_DATA.personal.email}</div>
                   </div>
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={handleCopyEmail}
                     className="btn-glass"
                     style={{ marginLeft: 'auto', padding: '0.35rem 0.75rem', fontSize: '0.78rem' }}
                   >
                     {copied ? 'Copied!' : 'Copy'}
-                  </button>
-                </div>
+                  </motion.button>
+                </motion.div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <motion.div initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                   <div style={{ padding: '0.75rem', background: 'rgba(6, 182, 212, 0.15)', borderRadius: '0.6rem', color: '#38bdf8' }}>
                     <MapPin size={20} />
                   </div>
@@ -108,24 +123,26 @@ export const Contact: React.FC = () => {
                     <div style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Location</div>
                     <div style={{ fontSize: '1rem', fontWeight: 600, color: '#ffffff' }}>{PORTFOLIO_DATA.personal.location}</div>
                   </div>
-                </div>
+                </motion.div>
               </div>
 
               {/* Social Channels List */}
               <h4 style={{ fontSize: '1rem', fontWeight: 700, color: '#ffffff', marginBottom: '1rem' }}>Social Networks</h4>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
-                <a
+                <motion.a
+                  whileHover={{ scale: 1.04, y: -3 }}
                   href={PORTFOLIO_DATA.personal.socials.github}
                   target="_blank"
                   rel="noreferrer"
                   className="glass-panel"
                   style={{ padding: '0.85rem 1rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: '#ffffff' }}
                 >
-                  <Github size={20} style={{ color: '#c084fc' }} />
+                  <Github size={20} style={{ color: '#34d399' }} />
                   <span style={{ fontSize: '0.9rem', fontWeight: 600 }}>GitHub</span>
-                </a>
+                </motion.a>
 
-                <a
+                <motion.a
+                  whileHover={{ scale: 1.04, y: -3 }}
                   href={PORTFOLIO_DATA.personal.socials.linkedin}
                   target="_blank"
                   rel="noreferrer"
@@ -134,9 +151,10 @@ export const Contact: React.FC = () => {
                 >
                   <Linkedin size={20} style={{ color: '#38bdf8' }} />
                   <span style={{ fontSize: '0.9rem', fontWeight: 600 }}>LinkedIn</span>
-                </a>
+                </motion.a>
 
-                <a
+                <motion.a
+                  whileHover={{ scale: 1.04, y: -3 }}
                   href={PORTFOLIO_DATA.personal.socials.facebook}
                   target="_blank"
                   rel="noreferrer"
@@ -145,9 +163,10 @@ export const Contact: React.FC = () => {
                 >
                   <Facebook size={20} style={{ color: '#60a5fa' }} />
                   <span style={{ fontSize: '0.9rem', fontWeight: 600 }}>Facebook</span>
-                </a>
+                </motion.a>
 
-                <a
+                <motion.a
+                  whileHover={{ scale: 1.04, y: -3 }}
                   href={PORTFOLIO_DATA.personal.socials.instagram}
                   target="_blank"
                   rel="noreferrer"
@@ -156,19 +175,28 @@ export const Contact: React.FC = () => {
                 >
                   <Instagram size={20} style={{ color: '#f472b6' }} />
                   <span style={{ fontSize: '0.9rem', fontWeight: 600 }}>Instagram</span>
-                </a>
+                </motion.a>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column: MERN API Form */}
-          <div className="glass-panel" style={{ padding: '2.5rem' }}>
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, ease: smoothEase }}
+            className="glass-panel"
+            style={{ padding: '2.5rem' }}
+          >
             <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#ffffff', marginBottom: '1.5rem' }}>
               Send a Direct Message
             </h3>
 
             {status.type === 'success' && (
-              <div
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
                 style={{
                   background: 'rgba(16, 185, 129, 0.15)',
                   border: '1px solid rgba(16, 185, 129, 0.3)',
@@ -183,11 +211,13 @@ export const Contact: React.FC = () => {
                 }}
               >
                 <CheckCircle2 size={20} style={{ flexShrink: 0 }} /> {status.message}
-              </div>
+              </motion.div>
             )}
 
             {status.type === 'error' && (
-              <div
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
                 style={{
                   background: 'rgba(239, 68, 68, 0.15)',
                   border: '1px solid rgba(239, 68, 68, 0.3)',
@@ -202,7 +232,7 @@ export const Contact: React.FC = () => {
                 }}
               >
                 <AlertCircle size={20} style={{ flexShrink: 0 }} /> {status.message}
-              </div>
+              </motion.div>
             )}
 
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
@@ -300,16 +330,18 @@ export const Contact: React.FC = () => {
                 ></textarea>
               </div>
 
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 type="submit"
                 disabled={status.type === 'loading'}
                 className="btn-glow-primary"
                 style={{ width: '100%', justifyContent: 'center', padding: '0.95rem' }}
               >
                 {status.type === 'loading' ? 'Sending Message...' : 'Send Message'} <Send size={18} />
-              </button>
+              </motion.button>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
 
