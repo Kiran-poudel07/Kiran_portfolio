@@ -1,7 +1,4 @@
 {
-  "buildCommand": "cd client && npm install --include=dev && npm run build",
-  "outputDirectory": "client/dist",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
+  "framework": "vite",
+  "rootDirectory": "client"
 }
