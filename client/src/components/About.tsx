@@ -1,5 +1,6 @@
 import React from 'react';
-import { User, MapPin, Award, Activity, Code, Target, ShieldCheck } from 'lucide-react';
+import { User, MapPin, Activity, Code, Target, ShieldCheck } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
 
 export const About: React.FC = () => {
@@ -30,7 +31,13 @@ export const About: React.FC = () => {
     <section id="about" style={{ padding: '5rem 0', position: 'relative' }}>
       <div className="container">
         {/* Section Heading */}
-        <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          style={{ textAlign: 'center', marginBottom: '3.5rem' }}
+        >
           <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
             WHO I AM
           </span>
@@ -38,12 +45,19 @@ export const About: React.FC = () => {
             About <span className="gradient-text">Kiran Poudel</span>
           </h2>
           <div style={{ width: '60px', height: '4px', background: 'linear-gradient(90deg, #10b981, #0284c7)', margin: '0.8rem auto 0', borderRadius: '2px' }}></div>
-        </div>
+        </motion.div>
 
         {/* About Grid */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '2.5rem', alignItems: 'center' }} className="about-grid">
           {/* Main Description Glass Card */}
-          <div className="glass-panel" style={{ padding: '2.5rem' }}>
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="glass-panel"
+            style={{ padding: '2.5rem' }}
+          >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
               <div style={{ padding: '0.5rem', background: 'rgba(16, 185, 129, 0.15)', borderRadius: '0.5rem', color: '#34d399' }}>
                 <User size={22} />
@@ -67,16 +81,24 @@ export const About: React.FC = () => {
                 <Activity size={18} style={{ color: '#10b981' }} /> Status: <strong style={{ color: '#10b981' }}>{PORTFOLIO_DATA.personal.status}</strong>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* 4 Feature Cards */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
             {highlights.map((item, idx) => (
-              <div key={idx} className="glass-panel" style={{ padding: '1.5rem' }}>
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="glass-panel"
+                style={{ padding: '1.5rem' }}
+              >
                 <div style={{ marginBottom: '0.85rem' }}>{item.icon}</div>
                 <h4 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#ffffff', marginBottom: '0.4rem' }}>{item.title}</h4>
                 <p style={{ fontSize: '0.85rem', color: '#94a3b8', lineHeight: 1.5 }}>{item.desc}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

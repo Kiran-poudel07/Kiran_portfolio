@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ExternalLink, Github, Folder, Layers, Sparkles, BookOpen } from 'lucide-react';
+import { ExternalLink, Github, Folder, BookOpen } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { PORTFOLIO_DATA, Project } from '../data/portfolioData';
 import { ProjectModal } from './ProjectModal';
 
@@ -22,7 +23,13 @@ export const Projects: React.FC = () => {
     <section id="projects" style={{ padding: '5rem 0', position: 'relative' }}>
       <div className="container">
         {/* Section Heading */}
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          style={{ textAlign: 'center', marginBottom: '3rem' }}
+        >
           <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
             ENGINEERING & RESEARCH SHOWCASE
           </span>
@@ -33,7 +40,7 @@ export const Projects: React.FC = () => {
             Real-world enterprise ASP.NET systems, MERN applications, and data-driven empirical research supported by field surveys across Government Offices & 10+ Engineering Colleges in Nepal.
           </p>
           <div style={{ width: '60px', height: '4px', background: 'linear-gradient(90deg, #10b981, #0284c7)', margin: '0.8rem auto 0', borderRadius: '2px' }}></div>
-        </div>
+        </motion.div>
 
         {/* Filter Tabs */}
         <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '0.75rem', marginBottom: '3rem' }}>
@@ -55,9 +62,13 @@ export const Projects: React.FC = () => {
 
         {/* Projects Grid */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '2rem' }}>
-          {filteredProjects.map((project: Project) => (
-            <div
+          {filteredProjects.map((project: Project, idx: number) => (
+            <motion.div
               key={project.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
               className="glass-panel"
               style={{
                 display: 'flex',
@@ -170,7 +181,7 @@ export const Projects: React.FC = () => {
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

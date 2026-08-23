@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight, Code2, Download, Github, Linkedin, Mail, ShieldCheck, Copy, Check } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
 
 interface HeroProps {
@@ -20,7 +21,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
       <div className="container">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '2.5rem', alignItems: 'center' }} className="hero-grid">
           {/* Left Column: Text & CTAs */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: -35 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7 }}
+          >
             <div className="status-pill" style={{ marginBottom: '1.25rem' }}>
               <span className="status-dot"></span>
               {PORTFOLIO_DATA.personal.status}
@@ -98,10 +103,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
                 </a>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column: Headshot Photo Card & Code Window */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          <motion.div
+            initial={{ opacity: 0, x: 35 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7 }}
+            style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}
+          >
             {/* Profile Photo Card */}
             <div
               className="glass-panel"
@@ -177,11 +187,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
                 </code>
               </pre>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Recruiter Impact Metrics Bar */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
           style={{
             marginTop: '3.5rem',
             display: 'grid',
@@ -205,7 +218,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
               <div style={{ fontSize: '0.78rem', color: '#94a3b8', marginTop: '0.2rem' }}>{metric.subText}</div>
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
 
       <style>{`
