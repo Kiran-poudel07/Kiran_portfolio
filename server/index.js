@@ -31,14 +31,9 @@ app.use("/api/v1/contact", contactRoutes);
 app.get("/api/v1/health", (req, res) => {
   res.status(200).json({
     status: "online",
-    message: "Kiran Portfolio MERN Modular API Server is running smoothly!",
+    message: "Kiran Portfolio MERN Modular API Server is running smoothly on Vercel!",
     timestamp: new Date(),
   });
-});
-
-// Global 404 Route Handler
-app.use((req, res) => {
-  res.status(404).json({ success: false, message: "API Route not found" });
 });
 
 // Global Error Handler
@@ -50,10 +45,14 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start Server
-app.listen(PORT, () => {
-  console.log(`=================================================`);
-  console.log(`🚀 Modular Express Backend running on port ${PORT}`);
-  console.log(`🔗 API Base URL: http://localhost:${PORT}/api/v1`);
-  console.log(`=================================================`);
-});
+// Start Server locally
+if (process.env.NODE_ENV !== "production" || !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`=================================================`);
+    console.log(`🚀 Modular Express Backend running on port ${PORT}`);
+    console.log(`🔗 API Base URL: http://localhost:${PORT}/api/v1`);
+    console.log(`=================================================`);
+  });
+}
+
+module.exports = app;
