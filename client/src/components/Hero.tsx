@@ -100,7 +100,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
             </motion.p>
 
             {/* Action CTAs */}
-            <motion.div variants={itemVariants} style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginBottom: '2.25rem' }}>
+            <motion.div variants={itemVariants} className="hero-buttons" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.85rem', marginBottom: '2.25rem' }}>
               <motion.a whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.97 }} href="#projects" className="btn-glow-primary">
                 Explore Projects & Research <ArrowRight size={18} />
               </motion.a>
